@@ -19,7 +19,7 @@
 cmake_minimum_required (VERSION 3.22)
 
 if (NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
-  set (CMAKE_CUDA_ARCHITECTURES 75)
+  set (CMAKE_CUDA_ARCHITECTURES 75;80;86)
 endif (NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
 
 project (SuiteSparse
@@ -92,6 +92,10 @@ cmake_dependent_option (WITH_SUPERNODAL "Enable the Supernodal module" ON
 
 if (WITH_CUDA)
   enable_language (CUDA)
+  add_compile_definitions(GPU_BLAS)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGPU_BLAS")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DGPU_BLAS")
+  set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -DGPU_BLAS")
 else (WITH_CUDA)
   set (CMAKE_DISABLE_FIND_PACKAGE_CUDAToolkit ON)
 endif (WITH_CUDA)
@@ -1825,3 +1829,6 @@ set_package_properties (Threads PROPERTIES
 )
 
 feature_summary (WHAT ALL)
+
+
+add_subdirectory(example)

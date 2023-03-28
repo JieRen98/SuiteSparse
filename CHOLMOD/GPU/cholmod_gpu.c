@@ -106,7 +106,7 @@ int CHOLMOD(gpu_memorysize)      /* returns 1 on error, 0 otherwise */
     }
 
     /* try a bit less than the total free memory */
-    s = MAX (MINSIZE, total_free*0.98) ;
+    s = MAX (MINSIZE, total_free*0.9) ;
     if (poll_gpu (s))
     {
         /* printf ("quick %lu\n", s) ; */
